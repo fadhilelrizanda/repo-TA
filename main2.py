@@ -15,9 +15,12 @@ from deep_sort.detection import Detection
 from deep_sort.tracker import Tracker
 from tools import generate_detections as gdet
 
-video_path = "./data_video/camera1_test_2_cam_3.mp4"
-video_out_path = "./predicted_video/camera1_test_2_cam_3.mp4"
+# video_path = "./data_video/camera1_test_2_cam_3.mp4"
+# video_out_path = "./predicted_video/camera1_test_2_cam_3.mp4"
 
+filenames_vid = "camera1_take30.mp4"
+video_path = "./Dataset_video/"+filenames_vid
+video_out_path = "./predicted_video/"+filenames_vid
 
 #* First coordinate
 count_line_start = (444, 531) 
