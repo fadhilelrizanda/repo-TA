@@ -19,13 +19,28 @@ video_path = "./data_video/camera1_test_2_cam_3.mp4"
 video_out_path = "./predicted_video/camera1_test_2_cam_3.mp4"
 
 
+#* First coordinate
+count_line_start = (444, 531) 
+count_line_end =(1466, 487)  
 
-count_line_start = (444, 531)
-count_line_end =(1466, 487)
+speed_line_start = (621, 848) 
+speed_line_end = (1905, 772) 
 
-speed_line_start = (621, 848)
-speed_line_end = (1905, 772)
+offset_y = 100
+base_y_coordinate = 848 - offset_y
+base_y_coordinate2 = 772 -offset_y
 
+y_distance = 300
+
+x_coordinate1 =  521
+x_coordinate2 = 1805
+#* Second Coordinate
+
+speed_line_start = (x_coordinate1, base_y_coordinate) 
+speed_line_end = (x_coordinate2, base_y_coordinate2) 
+
+count_line_start = (x_coordinate1, base_y_coordinate-y_distance) 
+count_line_end =(x_coordinate2, base_y_coordinate2-y_distance)  
 
 
 
