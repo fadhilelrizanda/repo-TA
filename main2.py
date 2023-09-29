@@ -18,8 +18,8 @@ from tools import generate_detections as gdet
 # video_path = "./data_video/camera1_test_2_cam_3.mp4"
 # video_out_path = "./predicted_video/camera1_test_2_cam_3.mp4"
 
-filenames_vid = "camera1_take20.mp4"
-video_path = "./data_video/part1/camera1_take20.mp4"
+filenames_vid = "camera1_test_2_cam_20.mp4"
+video_path = "./data_video/part2/camera1_test_2_cam_20.mp4"
 video_out_path = "./predicted_video/"+filenames_vid
 loc_distance = 0
 camera1_stat = True
@@ -42,13 +42,32 @@ if camera1_stat :
     x_coordinate2 = 1805
     #* Second Coordinate
 
-    speed_line_start = (x_coordinate1, base_y_coordinate) 
-    speed_line_end = (x_coordinate2, base_y_coordinate2) 
+    # speed_line_start = (x_coordinate1, base_y_coordinate) 
+    # speed_line_end = (x_coordinate2, base_y_coordinate2) 
 
-    count_line_start = (x_coordinate1, base_y_coordinate-y_distance) 
-    count_line_end =(x_coordinate2, base_y_coordinate2-y_distance)  
+    # count_line_start = (x_coordinate1, base_y_coordinate-y_distance) 
+    # count_line_end =(x_coordinate2, base_y_coordinate2-y_distance)  
+
+    base_line_1_a_x,base_line_1_a_y  = (224,848)
+    base_line_2_b_x,base_line_2_b_y  = (1800,772)
+
+    default_distance = 317
+    set_distance = 200
+    set_y_offset = 100
+
+    base_line_1_a_y = base_line_1_a_y-set_y_offset
+    base_line_2_b_y = base_line_2_b_y-set_y_offset
+
+
+    speed_line_start = (base_line_1_a_x, base_line_1_a_y) # 317
+    speed_line_end = (base_line_2_b_x, base_line_2_b_y) 
+
+    count_line_start = (base_line_1_a_x, base_line_1_a_y -set_distance)  # 317
+    count_line_end =(base_line_2_b_x, base_line_2_b_y -set_distance)   #285
+
 
 else:
+
     loc_distance = 9.7
     x_offset = 200
     y_offset = 200
