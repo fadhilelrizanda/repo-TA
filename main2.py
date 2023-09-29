@@ -15,32 +15,82 @@ from deep_sort.detection import Detection
 from deep_sort.tracker import Tracker
 from tools import generate_detections as gdet
 
-video_path = "./data_video/camera1_test_2_cam_3.mp4"
-video_out_path = "./predicted_video/camera1_test_2_cam_3.mp4"
+# video_path = "./data_video/camera1_test_2_cam_3.mp4"
+# video_out_path = "./predicted_video/camera1_test_2_cam_3.mp4"
+
+filenames_vid = "camera1_take20.mp4"
+video_path = "./data_video/part1/camera1_take20.mp4"
+video_out_path = "./predicted_video/"+filenames_vid
+loc_distance = 0
+camera1_stat = True
+if camera1_stat :
+    loc_distance = 15
+    #* First coordinate
+    count_line_start = (244, 531) 
+    count_line_end =(1466, 487)  
+
+    speed_line_start = (221, 848) 
+    speed_line_end = (1905, 772) 
+
+    offset_y = 100
+    base_y_coordinate = 848 - offset_y
+    base_y_coordinate2 = 772 -offset_y
+
+    y_distance = 300
+
+    x_coordinate1 =  521
+    x_coordinate2 = 1805
+    #* Second Coordinate
+
+    speed_line_start = (x_coordinate1, base_y_coordinate) 
+    speed_line_end = (x_coordinate2, base_y_coordinate2) 
+
+    count_line_start = (x_coordinate1, base_y_coordinate-y_distance) 
+    count_line_end =(x_coordinate2, base_y_coordinate2-y_distance)  
+
+else:
+    loc_distance = 9.7
+    x_offset = 200
+    y_offset = 200
+
+    base_x, base_y = (1191, 956-y_offset)
+    base_x2, base_y2 = (142, 742-y_offset)
+
+    #check slope
+    slope = (base_y2-base_y)/(base_x2-base_x)
+    print(f"slope : {slope}")
+
+    
+    base2_x, base2_y = (1578, 460-y_offset)
+    base2_x2 = 958
+    base2_y2 = slope*(base2_x2-base2_x)+base2_y 
 
 
-#* First coordinate
-count_line_start = (444, 531) 
-count_line_end =(1466, 487)  
 
-speed_line_start = (621, 848) 
-speed_line_end = (1905, 772) 
+# calculate distance (5m)
+    y_line_pred = slope*(base_x-base2_x)+base2_y
+    distance = abs(base_y-y_line_pred)
+    print(distance)
 
-offset_y = 100
-base_y_coordinate = 848 - offset_y
-base_y_coordinate2 = 772 -offset_y
+    #reducing 
+    red_base2_x, red_base2_y = (1578, 460+200 -y_offset)
+    red_base2_x2 = 458
+    red_base2_y2 = slope*(red_base2_x2-red_base2_x)+red_base2_y 
 
-y_distance = 300
 
-x_coordinate1 =  521
-x_coordinate2 = 1805
-#* Second Coordinate
+    y_line_pred_red = slope*(base_x-red_base2_x)+red_base2_y
+    distance_red = abs(base_y-y_line_pred_red)
+    print(distance_red)
+    speed_line_start = (base_x,base_y)
+    speed_line_end = (base_x2,base_y2)
 
-speed_line_start = (x_coordinate1, base_y_coordinate) 
-speed_line_end = (x_coordinate2, base_y_coordinate2) 
+    # count_line_start = (base2_x, int(base2_y)) 
+    # count_line_end =(base2_x2, int(base2_y2)) 
 
-count_line_start = (x_coordinate1, base_y_coordinate-y_distance) 
-count_line_end =(x_coordinate2, base_y_coordinate2-y_distance)  
+#red
+    count_line_start = (red_base2_x, int(red_base2_y)) 
+    count_line_end =(red_base2_x2, int(red_base2_y2)) 
+
 
 
 
@@ -50,7 +100,7 @@ ret, frame = cap.read()
 cap_out = cv2.VideoWriter(video_out_path, cv2.VideoWriter_fourcc(*'MP4V'), cap.get(cv2.CAP_PROP_FPS),
                           (frame.shape[1], frame.shape[0]))
 
-model = YOLO("./model_data/best_v2.pt")
+model = YOLO("./model_data/best_v3.pt")
 
 cfg_class = [""]
 
@@ -239,7 +289,7 @@ while ret:
                     else:
                         speed_state = True
                         end_speed_dict[track_id] = frame_iter
-                        last_speed = (15/((end_speed_dict[track_id]-start_speed_dict[track_id])/25))*3.6
+                        last_speed = (loc_distance/((end_speed_dict[track_id]-start_speed_dict[track_id])/25))*3.6
 
             
 
