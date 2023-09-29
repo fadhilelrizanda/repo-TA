@@ -19,10 +19,10 @@ from tools import generate_detections as gdet
 # video_out_path = "./predicted_video/camera1_test_2_cam_3.mp4"
 
 filenames_vid = "camera1_test_2_cam_20.mp4"
-video_path = "./data_video/part2/camera1_test_2_cam_20.mp4"
+video_path = "./data_video/part2/camera2_test_2_cam_20.mp4"
 video_out_path = "./predicted_video/"+filenames_vid
 loc_distance = 0
-camera1_stat = True
+camera1_stat = False
 if camera1_stat :
     loc_distance = 9.46
     #* First coordinate
@@ -70,17 +70,17 @@ else:
 
     loc_distance = 9.7
     x_offset = 200
-    y_offset = 200
+    y_offset = 350
 
-    base_x, base_y = (1191, 956-y_offset)
-    base_x2, base_y2 = (142, 742-y_offset)
+    base_x, base_y = (1691, 956-y_offset)
+    base_x2, base_y2 = (102, 742-y_offset)
 
     #check slope
     slope = (base_y2-base_y)/(base_x2-base_x)
     print(f"slope : {slope}")
 
     
-    base2_x, base2_y = (1578, 460-y_offset)
+    base2_x, base2_y = (1691, 460-y_offset)
     base2_x2 = 958
     base2_y2 = slope*(base2_x2-base2_x)+base2_y 
 
@@ -92,7 +92,7 @@ else:
     print(distance)
 
     #reducing 
-    red_base2_x, red_base2_y = (1578, 460+200 -y_offset)
+    red_base2_x, red_base2_y = (1791, 460+200 -y_offset)
     red_base2_x2 = 458
     red_base2_y2 = slope*(red_base2_x2-red_base2_x)+red_base2_y 
 
