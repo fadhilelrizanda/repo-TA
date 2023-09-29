@@ -70,9 +70,9 @@ else:
 
     loc_distance = 9.7
     x_offset = 200
-    y_offset = 350
+    y_offset = 250
 
-    base_x, base_y = (1691, 956-y_offset)
+    base_x, base_y = (1791, 956-y_offset)
     base_x2, base_y2 = (102, 742-y_offset)
 
     #check slope
@@ -80,7 +80,7 @@ else:
     print(f"slope : {slope}")
 
     
-    base2_x, base2_y = (1691, 460-y_offset)
+    base2_x, base2_y = (1791, 460-y_offset)
     base2_x2 = 958
     base2_y2 = slope*(base2_x2-base2_x)+base2_y 
 
@@ -92,7 +92,7 @@ else:
     print(distance)
 
     #reducing 
-    red_base2_x, red_base2_y = (1791, 460+200 -y_offset)
+    red_base2_x, red_base2_y = (1891, 460+200 -y_offset)
     red_base2_x2 = 458
     red_base2_y2 = slope*(red_base2_x2-red_base2_x)+red_base2_y 
 
