@@ -24,7 +24,7 @@ video_out_path = "./predicted_video/"+filenames_vid
 loc_distance = 0
 camera1_stat = True
 if camera1_stat :
-    loc_distance = 15
+    loc_distance = 9.46
     #* First coordinate
     count_line_start = (244, 531) 
     count_line_end =(1466, 487)  
@@ -308,8 +308,13 @@ while ret:
                     else:
                         speed_state = True
                         end_speed_dict[track_id] = frame_iter
-                        last_speed = (loc_distance/((end_speed_dict[track_id]-start_speed_dict[track_id])/25))*3.6
-
+                        try:
+                            last_speed = (loc_distance/((end_speed_dict[track_id]-start_speed_dict[track_id])/25))*3.6
+                        except ZeroDivisionError as e:
+                            last_speed = 0
+                        except Exception as e:
+                            # Handle other exceptions here (if needed)
+                            print(f"An error occurred: {e}")
             
 
     # Draw Square in right corner
@@ -321,12 +326,12 @@ while ret:
     # Draw a filled rectangle
     cv2.rectangle(frame, top_left, bottom_right, (150, 0, 0), -1)
 
-    print(f'k_keluar : {num_det_up}  k_masuk : {num_det_down}')
+    print(f'k_masuk : {num_det_down} k_keluar : {num_det_up} ')
     # Assuming you have defined the values for num_det, x1, and y1
     print(start_speed_dict)
     print(end_speed_dict)
     print(f'last speed : {last_speed}')
-    text = f'k_keluar : {num_det_up}  k_masuk : {num_det_down}'
+    text = f'k_masuk : {num_det_down} k_keluar : {num_det_up} '
 
     font = cv2.FONT_HERSHEY_SIMPLEX  # Choosing a font face
     font_scale = 1
