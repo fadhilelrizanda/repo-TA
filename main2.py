@@ -195,11 +195,17 @@ start_speed_dict ={}
 end_speed_dict = {}
 frame_iter = 0
 last_speed = 0
+start_time = time.time()
+
+
 while ret:
-    frame_iter +=1
+    
     print(frame_iter)
     ret, frame = cap.read()
 
+    if not ret:
+        # No more frames to read, break out of the loop
+        break
     # preprocessing
     frame_height, frame_width,_ = frame.shape
     # frame = cv2.resize(frame,(640,640))
@@ -394,6 +400,12 @@ while ret:
 
     if key == 27:  # Exit when the 'Esc' key is pressed
         break
+    
+    frame_iter +=1
+    current_time = time.time()
+    elapsed_time = current_time - start_time
+    fps = frame_iter/elapsed_time
+    print(f"FPS : {fps}")
 
     cap_out.write(frame)
 
